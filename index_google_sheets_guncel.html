@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#f5efe5" />
+<title>Zeynep & Akif | Dijital Davetiye</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=MonteCarlo&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+@font-face{
+  font-family:"The Seasons";
+  src:url("assets/TheSeasons.woff2") format("woff2");
+  font-display:swap;
+}
+
+:root{
+  --paper:#f6efe5;
+  --ink:#151412;
+  --muted:#716a60;
+  --gold:#b88a3d;
+  --gold2:#e8c16b;
+  --red:#83251d;
+  --black:#0c0b09;
+  --glass:rgba(255,252,246,.64);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--ink);
+  font-family:"Poppins",sans-serif;
+  overflow-x:hidden;
+  background:
+    linear-gradient(180deg,rgba(246,239,229,.76),rgba(246,239,229,.94)),
+    url("assets/yellow-flowers.jpg") center top/cover fixed no-repeat;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-2;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.70) 0%, rgba(255,255,255,.16) 44%, rgba(246,239,229,.92) 100%),
+    radial-gradient(circle at 72% 6%,rgba(255,255,255,.60),transparent 27%);
+}
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  opacity:.07;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 260 260' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+}
+
+.script,.names,.hand{
+  font-family:"MonteCarlo","The Seasons","Alex Brush",cursive;
+  font-weight:400;
+}
+.names{
+  font-size:clamp(54px,7.4vw,94px);
+  line-height:.92;
+  letter-spacing:-.025em;
+  margin:0;
+}
+.scene{
+  min-height:100svh;
+  display:grid;
+  place-items:center;
+  position:relative;
+  padding:70px 18px;
+  overflow:hidden;
+}
+.shell{
+  width:min(1120px,94vw);
+  margin:auto;
+  position:relative;
+}
+.glass{
+  background:linear-gradient(135deg,rgba(255,255,255,.70),rgba(255,248,238,.48));
+  border:1px solid rgba(255,255,255,.78);
+  box-shadow:0 30px 84px rgba(74,58,34,.14), inset 0 1px 0 rgba(255,255,255,.62);
+  backdrop-filter:blur(28px) saturate(125%);
+}
+.kicker{
+  font-size:12px;
+  letter-spacing:.27em;
+  text-transform:uppercase;
+  color:var(--muted);
+  font-weight:600;
+}
+.lead{
+  font-size:clamp(22px,2.7vw,38px);
+  line-height:1.35;
+  font-weight:400;
+  margin:0;
+}
+.small{
+  font-size:14px;
+  line-height:1.8;
+  color:#3d372f;
+}
+.rule{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:18px;
+  margin:23px auto;
+  color:var(--gold);
+}
+.rule::before,.rule::after{
+  content:"";
+  width:90px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold));
+}
+.rule::after{background:linear-gradient(90deg,var(--gold),transparent)}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  border:1px solid rgba(21,20,18,.42);
+  border-radius:999px;
+  padding:13px 24px;
+  text-decoration:none;
+  color:var(--ink);
+  background:rgba(255,255,255,.36);
+  font-size:12px;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  transition:.3s ease;
+  cursor:pointer;
+}
+.btn:hover{background:#111;color:#fff;transform:translateY(-2px)}
+.reveal{
+  opacity:0;
+  transform:translateY(38px);
+  filter:blur(9px);
+  transition:1s cubic-bezier(.2,.8,.2,1);
+}
+.reveal.show{
+  opacity:1;
+  transform:translateY(0);
+  filter:blur(0);
+}
+
+/* TOP */
+.topbar{
+  position:fixed;
+  inset:14px 18px auto 18px;
+  z-index:50;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  pointer-events:none;
+}
+.logo{
+  font-size:12px;
+  letter-spacing:.18em;
+  color:rgba(21,20,18,.62);
+  font-weight:500;
+}
+.music{
+  pointer-events:auto;
+  width:46px;height:46px;border-radius:50%;
+  border:1px solid rgba(21,20,18,.14);
+  background:rgba(255,255,255,.64);
+  backdrop-filter:blur(18px);
+  box-shadow:0 18px 42px rgba(0,0,0,.10);
+  cursor:pointer;
+  color:#111;
+}
+.music.playing{background:#111;color:#fff}
+
+/* INTRO ENVELOPE */
+#intro{
+  position:fixed;
+  inset:0;
+  z-index:70;
+  display:grid;
+  place-items:center;
+  background:
+    linear-gradient(180deg,rgba(246,239,229,.72),rgba(246,239,229,.92)),
+    url("assets/yellow-flowers.jpg") center top/cover no-repeat;
+}
+.envelope{
+  width:min(520px,88vw);
+  height:min(800px,88svh);
+  position:relative;
+  overflow:hidden;
+  background:
+    linear-gradient(180deg,#fffdf8,#f2eadf);
+  border:1px solid rgba(0,0,0,.055);
+  box-shadow:0 30px 90px rgba(0,0,0,.16);
+}
+.envelope::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(38deg, transparent 49.4%, rgba(80,72,60,.20) 50%, transparent 50.6%),
+    linear-gradient(142deg, transparent 49.4%, rgba(80,72,60,.18) 50%, transparent 50.6%),
+    linear-gradient(180deg,rgba(255,255,255,.58),transparent 60%);
+}
+.envelope::after{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.52),transparent 35%),
+    repeating-linear-gradient(0deg,rgba(0,0,0,.018) 0 1px,transparent 1px 7px);
+  opacity:.70;
+}
+.seal{
+  position:absolute;
+  left:50%;top:43%;
+  transform:translate(-50%,-50%);
+  width:122px;height:122px;
+  border:0;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 36% 24%,#ffe9a9 0 9%,#e4aa45 28%,#bd742c 55%,#814115 100%);
+  box-shadow:
+    0 16px 36px rgba(70,38,9,.22),
+    inset 0 0 0 7px rgba(255,237,184,.24),
+    inset 0 0 0 14px rgba(107,55,13,.13),
+    inset 0 0 0 20px rgba(255,213,122,.08);
+  z-index:3;
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  transition:.4s cubic-bezier(.2,.8,.2,1);
+}
+.seal::before{
+  content:"";
+  position:absolute;
+  inset:17px;
+  border-radius:50%;
+  border:1px solid rgba(91,45,12,.44);
+}
+.seal::after{
+  content:"A Z";
+  position:relative;
+  z-index:2;
+  font-family:"MonteCarlo","The Seasons","Alex Brush",cursive;
+  font-size:39px;
+  color:#6b320f;
+  text-shadow:0 1px 1px rgba(255,235,171,.6);
+  letter-spacing:-.06em;
+}
+.seal:hover{transform:translate(-50%,-50%) scale(1.06) rotate(-4deg)}
+.intro-text{
+  position:absolute;
+  left:0;right:0;
+  top:52%;
+  z-index:3;
+  text-align:center;
+  padding:0 28px;
+}
+.intro-text .arabic{
+  font-family:"Amiri",serif;
+  font-size:34px;
+  line-height:1.2;
+  margin:0 0 16px;
+  color:#151412;
+}
+.intro-text .upper{
+  font-size:12px;
+  letter-spacing:.25em;
+  text-transform:uppercase;
+}
+.intro-text .click{
+  font-family:"MonteCarlo","The Seasons","Alex Brush",cursive;
+  font-size:43px;
+  margin-top:4px;
+}
+.scroll-hint{
+  margin-top:38px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+  font-size:12px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:#6f675e;
+}
+.scroll-hint span{
+  width:30px;height:48px;border:1px solid rgba(21,20,18,.32);
+  border-radius:999px;position:relative;
+}
+.scroll-hint span::after{
+  content:"";
+  width:5px;height:5px;border-radius:50%;
+  background:#777;position:absolute;left:50%;top:11px;
+  transform:translateX(-50%);
+  animation:mouse 1.45s infinite;
+}
+@keyframes mouse{50%{top:26px;opacity:.35}}
+body.open #intro{animation:introOut 1s cubic-bezier(.7,0,.2,1) forwards}
+body.open .envelope{animation:introCard 1s cubic-bezier(.7,0,.2,1) forwards}
+@keyframes introOut{to{opacity:0;visibility:hidden}}
+@keyframes introCard{to{transform:translateY(-46px) scale(.94);filter:blur(14px)}}
+
+/* HERO */
+.hero{
+  background:
+    linear-gradient(180deg,rgba(246,239,229,.68),rgba(246,239,229,.90)),
+    url("assets/yellow-flowers.jpg") center top/cover no-repeat;
+}
+.hero-card{
+  min-height:720px;
+  border-radius:34px;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  padding:70px 64px 56px;
+  text-align:center;
+}
+.hero-names{
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  gap:34px;
+  margin:0 auto 34px;
+  width:100%;
+}
+.person{flex:0 1 420px}
+.person .label{
+  font-family:"MonteCarlo","The Seasons","Alex Brush",cursive;
+  font-size:clamp(46px,5.8vw,76px);
+  line-height:.88;
+}
+.hero-names .amp{
+  align-self:center;
+  color:var(--gold);
+  font-family:"MonteCarlo","The Seasons","Alex Brush",cursive;
+  font-size:42px;
+  margin-top:18px;
+}
+.hero-center{max-width:760px;margin:0 auto}
+.verse-card{
+  margin:28px auto 0;
+  max-width:740px;
+  padding:22px 24px;
+  border-radius:22px;
+  background:rgba(255,255,255,.42);
+  border:1px solid rgba(255,255,255,.72);
+  box-shadow:0 16px 44px rgba(84,68,44,.08), inset 0 1px 0 rgba(255,255,255,.72);
+  backdrop-filter:blur(18px);
+  font-size:13px;
+  line-height:1.75;
+  color:#4a4138;
+}
+.verse-card .arabic{
+  display:block;
+  font-family:"Amiri",serif;
+  font-size:25px;
+  color:#171512;
+  margin-bottom:8px;
+}
+
+/* Countdown */
+.countdown{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  margin:28px auto 0;
+  width:100%;
+  max-width:660px;
+}
+.timebox{
+  min-height:122px;
+  display:grid;
+  place-items:center;
+  padding:16px;
+  border-radius:24px;
+  border:1px solid rgba(255,255,255,.74);
+  background:rgba(255,255,255,.54);
+  box-shadow:0 18px 42px rgba(96,80,55,.10), inset 0 1px 0 rgba(255,255,255,.65);
+  backdrop-filter:blur(20px);
+}
+.timebox strong{
+  display:block;
+  font-family:"Poppins",sans-serif;
+  font-size:46px;
+  font-weight:300;
+  line-height:1;
+}
+.timebox span{
+  display:block;
+  margin-top:10px;
+  font-family:"Poppins",sans-serif;
+  font-size:11px;
+  letter-spacing:.20em;
+  text-transform:uppercase;
+  font-weight:600;
+}
+
+/* EVENTS */
+.events{
+  background:
+    linear-gradient(90deg,rgba(7,6,5,.74),rgba(7,6,5,.58)),
+    url("assets/yellow-flowers.jpg") center/cover no-repeat;
+}
+.event-wrap{
+  min-height:620px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:38px;
+  align-items:stretch;
+}
+.event-card{
+  min-height:520px;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  text-align:center;
+  border-radius:34px;
+  padding:48px 38px;
+  color:#fff;
+  border:1px solid rgba(255,255,255,.35);
+  background:rgba(255,255,255,.10);
+  backdrop-filter:blur(28px) saturate(125%);
+  box-shadow:0 34px 85px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.18);
+  position:relative;
+  overflow:hidden;
+}
+.event-card.red{
+  background:
+    linear-gradient(135deg,rgba(131,37,29,.78),rgba(131,37,29,.38)),
+    rgba(255,255,255,.10);
+  border-color:rgba(255,217,207,.48);
+}
+.event-card h2{
+  font-family:"MonteCarlo","The Seasons","Alex Brush",cursive;
+  font-size:62px;
+  line-height:.9;
+  font-weight:400;
+  margin:8px 0 24px;
+}
+.event-card .kicker{color:rgba(255,255,255,.78)}
+.date-circle{
+  width:130px;height:130px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.62);
+  display:grid;place-items:center;margin:22px auto;
+  background:rgba(255,255,255,.12);
+  backdrop-filter:blur(14px);
+}
+.date-circle small{
+  display:block;
+  font-family:"Poppins",sans-serif;
+  font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+}
+.date-circle b{
+  display:block;
+  font-family:"Poppins",sans-serif;
+  font-size:42px;font-weight:300;line-height:1.05;
+}
+.event-card p{
+  font-size:14px;line-height:1.75;color:rgba(255,255,255,.88);margin:8px 0;
+}
+.form-note{
+  margin-top:34px;
+  padding:28px;
+  border-radius:26px;
+  text-align:center;
+}
+.form-note .note-title{
+  color:var(--gold);
+  font-size:24px;
+  font-weight:600;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+}
+.form-note p{margin:10px 0 0;color:#2d2925}
+
+/* MAP RSVP FINAL */
+.map-rsvp{
+  background:linear-gradient(180deg,rgba(246,239,229,.78),rgba(246,239,229,.96)),url("assets/yellow-flowers.jpg") center/cover no-repeat;
+}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:28px}
+.map-card{display:grid;grid-template-columns:1fr 1fr;overflow:hidden;border-radius:26px}
+.map-fake{
+  min-height:180px;
+  background:
+    linear-gradient(35deg,rgba(185,148,85,.22) 0 1px,transparent 1px 34px),
+    linear-gradient(125deg,rgba(21,20,18,.08) 0 1px,transparent 1px 38px),
+    #f2ecdf;
+  position:relative;
+}
+.map-fake::after{content:"📍";position:absolute;inset:0;display:grid;place-items:center;font-size:38px}
+.map-info{padding:26px}
+.rsvp-card{margin-top:34px;padding:34px;border-radius:30px;text-align:center}
+.rsvp-title{
+  font-family:"MonteCarlo","The Seasons","Alex Brush",cursive;
+  font-size:70px;line-height:.9;margin:10px 0 0;
+}
+.rsvp-form{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:26px}
+.rsvp-form textarea{grid-column:1/-1;min-height:105px;resize:vertical}
+input,select,textarea{
+  width:100%;border:1px solid rgba(21,20,18,.15);border-radius:18px;
+  background:rgba(255,255,255,.50);padding:15px 16px;font-family:"Poppins",sans-serif;outline:none;
+}
+.rsvp-form .btn{grid-column:1/-1;justify-self:center;min-width:260px;background:#111;color:#fff}
+.final{
+  min-height:100svh;color:#fff;text-align:center;
+  background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.82)),url("assets/yellow-flowers.jpg") center/cover no-repeat;
+}
+.final .names{color:#fff;text-shadow:0 20px 60px rgba(0,0,0,.42)}
+.final .lead{color:rgba(255,255,255,.84)}
+.petal{
+  position:fixed;top:-40px;z-index:30;pointer-events:none;width:14px;height:18px;
+  border-radius:80% 0 80% 0;background:rgba(255,255,255,.72);
+  box-shadow:0 4px 12px rgba(0,0,0,.12);animation:fall linear forwards;
+}
+@keyframes fall{to{transform:translateY(112vh) rotate(260deg)}}
+@media(max-width:880px){
+  .topbar{inset:14px 16px auto 16px}
+  .hero-card{padding:68px 24px 48px;min-height:auto}
+  .hero-names{flex-direction:column;align-items:center;gap:2px;margin-bottom:28px}
+  .hero-names .amp{margin:2px 0;font-size:32px}
+  .person .label{font-size:72px;text-align:center}
+  .event-wrap,.info-grid,.map-card,.rsvp-form{grid-template-columns:1fr}
+  .countdown{grid-template-columns:repeat(2,1fr)}
+  .event-wrap{gap:20px}
+  .event-card{min-height:auto;padding:42px 24px}
+  .date-circle{width:112px;height:112px}
+  .scene{padding:62px 14px}
+  .envelope{height:min(690px,86svh)}
+  .rsvp-title{font-size:54px}
+}
+
+/* FINAL REVISION */
+.bismillah-img{
+  width:min(360px,72vw);
+  display:block;
+  margin:0 auto 16px;
+  object-fit:contain;
+  filter:contrast(1.08);
+}
+.intro-text .upper{
+  font-size:11px;
+  letter-spacing:.22em;
+}
+.intro-text .click{
+  font-size:40px;
+}
+.person .label{
+  font-size:clamp(42px,5.2vw,68px);
+}
+.hero-names{
+  gap:22px;
+  margin-bottom:28px;
+}
+.hero-names .amp{
+  font-size:34px;
+  margin-top:10px;
+}
+.lead{
+  font-size:clamp(20px,2.35vw,34px);
+}
+.kicker{
+  font-size:11px;
+}
+.timebox strong{
+  font-size:42px;
+}
+.timebox span{
+  font-size:10px;
+}
+.event-card h2{
+  font-size:56px;
+}
+.event-card p{
+  font-size:13px;
+}
+.form-note{
+  background:linear-gradient(135deg,rgba(255,255,255,.50),rgba(255,255,255,.22));
+  border:1px solid rgba(255,255,255,.62);
+  backdrop-filter:blur(26px) saturate(125%);
+  box-shadow:0 26px 70px rgba(0,0,0,.12), inset 0 1px 0 rgba(255,255,255,.42);
+}
+.form-note .note-title{
+  font-size:21px;
+}
+@media(max-width:880px){
+  .hero-names{
+    flex-direction:row;
+    flex-wrap:wrap;
+    gap:10px 12px;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:22px;
+  }
+  .person{
+    flex:0 1 auto;
+  }
+  .person .label{
+    font-size:clamp(42px,12vw,58px);
+    line-height:.9;
+    white-space:nowrap;
+  }
+  .hero-names .amp{
+    font-size:28px;
+    margin:0 4px;
+    align-self:center;
+  }
+  .hero-card{
+    padding:58px 18px 40px;
+  }
+  .lead{
+    font-size:24px;
+  }
+  .countdown{
+    gap:10px;
+  }
+  .timebox{
+    min-height:104px;
+    border-radius:20px;
+  }
+  .timebox strong{
+    font-size:36px;
+  }
+  .verse-card{
+    font-size:12px;
+    padding:18px 16px;
+  }
+  .verse-card .arabic{
+    font-size:22px;
+  }
+  .bismillah-img{
+    width:min(340px,78vw);
+    margin-bottom:14px;
+  }
+  .intro-text{
+    top:52%;
+  }
+  .intro-text .click{
+    font-size:36px;
+  }
+}
+@media(max-width:430px){
+  .person .label{
+    font-size:43px;
+  }
+  .hero-names{
+    gap:4px 8px;
+  }
+  .hero-names .amp{
+    font-size:24px;
+  }
+}
+
+
+/* UNIFORM BACKGROUND + FINAL POLISH */
+body{
+  background:
+    linear-gradient(180deg,rgba(246,239,229,.78),rgba(246,239,229,.92)),
+    url("assets/yellow-flowers.jpg") center top/cover fixed no-repeat !important;
+}
+body::before{
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.68) 0%,rgba(255,255,255,.22) 45%,rgba(246,239,229,.88) 100%),
+    radial-gradient(circle at 68% 8%,rgba(255,255,255,.52),transparent 28%) !important;
+}
+.logo{display:none!important}
+.hero,.events,.map-rsvp,.final{
+  background:
+    linear-gradient(180deg,rgba(246,239,229,.76),rgba(246,239,229,.90)),
+    url("assets/yellow-flowers.jpg") center top/cover fixed no-repeat !important;
+}
+.events{
+  color:var(--ink)!important;
+}
+.event-card{
+  color:var(--ink)!important;
+  background:linear-gradient(135deg,rgba(255,255,255,.58),rgba(255,255,255,.26))!important;
+  border:1px solid rgba(255,255,255,.72)!important;
+  box-shadow:0 30px 84px rgba(74,58,34,.14), inset 0 1px 0 rgba(255,255,255,.62)!important;
+  backdrop-filter:blur(30px) saturate(125%)!important;
+}
+.event-card.red{
+  background:linear-gradient(135deg,rgba(131,37,29,.72),rgba(255,255,255,.22))!important;
+}
+.event-card.red,
+.event-card.red .kicker,
+.event-card.red p{
+  color:#fff!important;
+}
+.event-card:not(.red),
+.event-card:not(.red) .kicker,
+.event-card:not(.red) p{
+  color:var(--ink)!important;
+}
+.event-card:not(.red) .date-circle{
+  border-color:rgba(21,20,18,.35)!important;
+}
+.event-card.red .date-circle{
+  border-color:rgba(255,255,255,.65)!important;
+}
+.date-circle{
+  background:rgba(255,255,255,.16)!important;
+}
+.event-card:not(.red) .btn{
+  color:var(--ink)!important;
+  border-color:rgba(21,20,18,.42)!important;
+}
+.event-card.red .btn{
+  color:#fff!important;
+  border-color:rgba(255,255,255,.50)!important;
+}
+.form-note{
+  background:linear-gradient(135deg,rgba(255,255,255,.56),rgba(255,255,255,.24))!important;
+  border:1px solid rgba(255,255,255,.70)!important;
+  backdrop-filter:blur(30px) saturate(125%)!important;
+  box-shadow:0 26px 70px rgba(74,58,34,.14), inset 0 1px 0 rgba(255,255,255,.55)!important;
+}
+.form-note .note-title{
+  color:#7c6a4f!important;
+}
+.final{
+  color:var(--ink)!important;
+}
+.final::after{display:none!important}
+.final .names,
+.final .lead{
+  color:var(--ink)!important;
+  text-shadow:none!important;
+}
+.final .rule{
+  color:#7c6a4f!important;
+}
+.final .rule::before,
+.final .rule::after{
+  background:linear-gradient(90deg,transparent,rgba(124,106,79,.55))!important;
+}
+.final .rule::after{
+  background:linear-gradient(90deg,rgba(124,106,79,.55),transparent)!important;
+}
+.final .script{
+  color:var(--ink)!important;
+}
+.petal{
+  background:transparent!important;
+  background-image:url("assets/petal.png")!important;
+  background-size:contain!important;
+  background-repeat:no-repeat!important;
+  width:22px!important;
+  height:26px!important;
+  box-shadow:none!important;
+  opacity:.75!important;
+}
+.scene{
+  scroll-margin-top:0;
+}
+@media(max-width:880px){
+  .event-card{
+    border-radius:26px!important;
+  }
+}
+
+
+/* LANDSCAPE BACKGROUND + THINNER TYPE + FINAL CLEAN */
+body{
+  background:
+    linear-gradient(180deg,rgba(246,239,229,.62),rgba(246,239,229,.86)),
+    url("assets/landscape-bg.jpeg") center center/cover fixed no-repeat !important;
+}
+.hero,.events,.map-rsvp,.final{
+  background:
+    linear-gradient(180deg,rgba(246,239,229,.62),rgba(246,239,229,.86)),
+    url("assets/landscape-bg.jpeg") center center/cover fixed no-repeat !important;
+}
+.events{
+  background:
+    linear-gradient(180deg,rgba(15,13,10,.42),rgba(15,13,10,.56)),
+    url("assets/landscape-bg.jpeg") center center/cover fixed no-repeat !important;
+}
+.final{
+  background:
+    linear-gradient(180deg,rgba(15,13,10,.30),rgba(15,13,10,.48)),
+    url("assets/landscape-bg.jpeg") center center/cover fixed no-repeat !important;
+}
+.names,
+.person .label,
+.script,
+.event-card h2,
+.rsvp-title,
+.intro-text .click{
+  font-weight:300!important;
+  -webkit-text-stroke:.15px transparent;
+  text-shadow:none!important;
+}
+.person .label{
+  font-size:clamp(42px,5vw,66px)!important;
+  letter-spacing:-.04em!important;
+}
+.names{
+  font-size:clamp(62px,7.6vw,104px)!important;
+}
+.lead{
+  font-weight:300!important;
+}
+.final .names,
+.final .rule{
+  display:none!important;
+}
+.final .lead{
+  max-width:760px;
+  margin:0 auto;
+  color:#fff!important;
+  text-shadow:0 12px 36px rgba(0,0,0,.35)!important;
+}
+.final .script{
+  color:#fff!important;
+  text-shadow:0 12px 36px rgba(0,0,0,.35)!important;
+}
+.final .shell{
+  padding:54px 24px;
+  border-radius:34px;
+  background:linear-gradient(135deg,rgba(0,0,0,.24),rgba(255,255,255,.08));
+  border:1px solid rgba(255,255,255,.24);
+  backdrop-filter:blur(18px);
+}
+
+
+
+/* FINAL FIX: Besmele gerçek yazı, taşma yok + doğru arka plan */
+.bismillah-img{display:none!important;}
+.bismillah-text{
+  font-family:"Amiri","Scheherazade New","Times New Roman",serif;
+  width:min(430px,86%);
+  margin:0 auto 18px;
+  text-align:center;
+  direction:rtl;
+  unicode-bidi:isolate;
+  color:#111;
+  font-size:clamp(34px,5.4vw,52px);
+  line-height:1.35;
+  font-weight:400;
+  letter-spacing:-.035em;
+  overflow-wrap:normal;
+  word-break:keep-all;
+  text-shadow:none!important;
+}
+#intro{
+  background:linear-gradient(180deg,rgba(246,239,229,.58),rgba(246,239,229,.86)),url("assets/landscape-bg.jpeg") center center/cover no-repeat!important;
+}
+.intro-text{top:51%!important;}
+.envelope{overflow:hidden!important;}
+body,
+.hero,.map-rsvp,.final{
+  background:linear-gradient(180deg,rgba(246,239,229,.54),rgba(246,239,229,.84)),url("assets/landscape-bg.jpeg") center center/cover fixed no-repeat!important;
+}
+.events{
+  background:linear-gradient(180deg,rgba(15,13,10,.36),rgba(15,13,10,.52)),url("assets/landscape-bg.jpeg") center center/cover fixed no-repeat!important;
+}
+@media(max-width:880px){
+  .bismillah-text{width:90%;font-size:clamp(30px,9vw,42px);line-height:1.32;margin-bottom:14px;}
+  .intro-text{top:51%!important;}
+}
+@media(max-width:430px){
+  .bismillah-text{font-size:32px;width:92%;letter-spacing:-.045em;}
+}
+
+
+
+/* SON REVİZYON: Besmele daha küçük + gerçek Apple glass + arka plan görünür */
+.bismillah-text{
+  width:min(360px,78%)!important;
+  font-size:clamp(26px,4.5vw,42px)!important;
+  line-height:1.26!important;
+  margin:0 auto 14px!important;
+  letter-spacing:-.045em!important;
+  transform:translateY(-2px);
+}
+.intro-text{top:50%!important;}
+.envelope{
+  background:
+    linear-gradient(180deg,rgba(255,252,246,.50),rgba(242,234,223,.34)),
+    url("assets/landscape-bg.jpeg") center center/cover no-repeat!important;
+  border:1px solid rgba(255,255,255,.46)!important;
+  box-shadow:0 30px 90px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.62)!important;
+  backdrop-filter:blur(22px) saturate(150%)!important;
+}
+.envelope::after{opacity:.28!important;}
+.glass,
+.hero-card,
+.verse-card,
+.timebox,
+.event-card,
+.form-note,
+.map-card,
+.rsvp-card,
+.final .shell{
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.26),rgba(255,255,255,.10))!important;
+  border:1px solid rgba(255,255,255,.50)!important;
+  box-shadow:
+    0 28px 76px rgba(30,24,15,.14),
+    inset 0 1px 0 rgba(255,255,255,.60),
+    inset 0 -1px 0 rgba(255,255,255,.16)!important;
+  backdrop-filter:blur(30px) saturate(180%)!important;
+  -webkit-backdrop-filter:blur(30px) saturate(180%)!important;
+}
+.timebox,
+.verse-card,
+.map-info,
+.rsvp-card input,
+.rsvp-card select,
+.rsvp-card textarea{
+  background:rgba(255,255,255,.18)!important;
+}
+.event-card.red{
+  background:linear-gradient(135deg,rgba(131,37,29,.46),rgba(255,255,255,.11))!important;
+}
+body,
+.hero,
+.map-rsvp{
+  background:
+    linear-gradient(180deg,rgba(246,239,229,.28),rgba(246,239,229,.58)),
+    url("assets/landscape-bg.jpeg") center center/cover fixed no-repeat!important;
+}
+#intro{
+  background:
+    linear-gradient(180deg,rgba(246,239,229,.24),rgba(246,239,229,.46)),
+    url("assets/landscape-bg.jpeg") center center/cover no-repeat!important;
+}
+.events{
+  background:
+    linear-gradient(180deg,rgba(15,13,10,.18),rgba(15,13,10,.38)),
+    url("assets/landscape-bg.jpeg") center center/cover fixed no-repeat!important;
+}
+.final{
+  background:
+    linear-gradient(180deg,rgba(15,13,10,.12),rgba(15,13,10,.30)),
+    url("assets/landscape-bg.jpeg") center center/cover fixed no-repeat!important;
+}
+@media(max-width:880px){
+  .bismillah-text{width:80%!important;font-size:clamp(25px,7.2vw,34px)!important;line-height:1.22!important;margin-bottom:12px!important;}
+}
+@media(max-width:430px){
+  .bismillah-text{font-size:27px!important;width:82%!important;letter-spacing:-.055em!important;}
+}
+
+
+
+/* SON TESLİM: arka plan + mühür ekranı + müzik dosyası uyumu */
+body,
+#intro,
+.hero,
+.events,
+.map-rsvp,
+.final{
+  background-image:
+    linear-gradient(180deg,rgba(246,239,229,.20),rgba(246,239,229,.42)),
+    url("assets/landscape-bg.jpeg") !important;
+  background-position:center center !important;
+  background-size:cover !important;
+  background-repeat:no-repeat !important;
+}
+body,
+.hero,
+.events,
+.map-rsvp,
+.final{
+  background-attachment:fixed !important;
+}
+#intro{
+  position:fixed !important;
+  inset:0 !important;
+  width:100vw !important;
+  height:100svh !important;
+  overflow:hidden !important;
+}
+.envelope{
+  width:100vw !important;
+  height:100svh !important;
+  max-width:none !important;
+  max-height:none !important;
+  border:0 !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+  background:
+    linear-gradient(180deg,rgba(246,239,229,.12),rgba(246,239,229,.34)),
+    url("assets/landscape-bg.jpeg") center center/cover no-repeat !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+.envelope::before{
+  content:"" !important;
+  position:absolute !important;
+  inset:0 !important;
+  background:
+    linear-gradient(38deg, transparent 49.55%, rgba(30,30,30,.22) 50%, transparent 50.45%),
+    linear-gradient(142deg, transparent 49.55%, rgba(30,30,30,.18) 50%, transparent 50.45%),
+    linear-gradient(180deg,rgba(255,255,255,.30),rgba(255,255,255,.04) 54%,rgba(255,255,255,.28)) !important;
+  pointer-events:none !important;
+}
+.envelope::after{
+  content:"" !important;
+  position:absolute !important;
+  inset:0 !important;
+  background:rgba(255,244,210,.18) !important;
+  opacity:1 !important;
+  pointer-events:none !important;
+}
+.intro-text{
+  position:absolute !important;
+  inset:0 !important;
+  top:0 !important;
+  z-index:4 !important;
+  padding:0 24px !important;
+  display:block !important;
+  text-align:center !important;
+}
+.intro-text .upper{
+  position:absolute !important;
+  top:23svh !important;
+  left:0 !important;
+  right:0 !important;
+  font-size:clamp(11px,1.65vw,20px) !important;
+  letter-spacing:.42em !important;
+  color:#1d1b18 !important;
+}
+.intro-text .click{
+  position:absolute !important;
+  top:66svh !important;
+  left:0 !important;
+  right:0 !important;
+  font-size:clamp(36px,5.2vw,62px) !important;
+  color:#151412 !important;
+  margin:0 !important;
+}
+.seal{
+  top:50svh !important;
+  left:50% !important;
+  width:clamp(124px,17vw,208px) !important;
+  height:clamp(124px,17vw,208px) !important;
+  z-index:5 !important;
+}
+.seal::after{
+  font-size:clamp(44px,6vw,82px) !important;
+}
+.bismillah-text{
+  position:absolute !important;
+  top:11svh !important;
+  left:50% !important;
+  transform:translateX(-50%) !important;
+  width:min(620px,88vw) !important;
+  margin:0 !important;
+  font-size:clamp(30px,4.7vw,58px) !important;
+  line-height:1.16 !important;
+  letter-spacing:-.045em !important;
+  z-index:4 !important;
+  white-space:nowrap !important;
+  color:#111 !important;
+}
+.scroll-hint{
+  position:absolute !important;
+  left:0 !important;
+  right:0 !important;
+  bottom:7svh !important;
+  margin:0 !important;
+  color:rgba(42,39,35,.58) !important;
+  font-size:clamp(10px,1.4vw,15px) !important;
+  letter-spacing:.42em !important;
+}
+@media(max-width:880px){
+  body,.hero,.events,.map-rsvp,.final{background-attachment:scroll !important;}
+  .intro-text .upper{top:24svh !important;font-size:12px !important;letter-spacing:.34em !important;}
+  .intro-text .click{top:66svh !important;font-size:44px !important;}
+  .seal{top:49svh !important;width:132px !important;height:132px !important;}
+  .seal::after{font-size:42px !important;}
+  .bismillah-text{top:11svh !important;width:90vw !important;font-size:32px !important;line-height:1.18 !important;}
+  .scroll-hint{bottom:6svh !important;font-size:11px !important;letter-spacing:.30em !important;}
+}
+@media(max-width:430px){
+  .intro-text .upper{top:24svh !important;font-size:11px !important;letter-spacing:.28em !important;}
+  .intro-text .click{top:65svh !important;font-size:40px !important;}
+  .seal{top:49svh !important;width:122px !important;height:122px !important;}
+  .bismillah-text{top:11svh !important;font-size:27px !important;width:92vw !important;}
+}
+
+</style>
+</head>
+
+<body>
+<div class="topbar">
+  <div class="logo" aria-hidden="true"></div>
+  <button class="music" id="musicBtn" onclick="toggleMusic()" aria-label="Müzik">♫</button>
+</div>
+
+<audio id="bgm" loop preload="auto" playsinline>
+  <source src="assets/idea-15.mp3" type="audio/mpeg">
+</audio>
+
+<section id="intro">
+  <div class="envelope glass">
+    <button class="seal" onclick="openInvite()" aria-label="Davetiyeyi aç"></button>
+    <div class="intro-text">
+      <div class="bismillah-text" aria-label="Besmele">بِسْمِ ٱللّٰهِ ٱلرَّحْمٰنِ ٱلرَّحِيمِ</div>
+      <div class="upper">Davetiyemizi açmak için</div>
+      <div class="click">mühüre tıklayın</div>
+      <div class="scroll-hint">Sonra kaydırın <span></span></div>
+    </div>
+  </div>
+</section>
+
+<main>
+  <section class="scene hero">
+    <div class="shell glass hero-card reveal">
+      <div class="hero-names">
+        <div class="person"><div class="label">İmtisal Zeynep</div></div>
+        <div class="amp">&</div>
+        <div class="person"><div class="label">Mehmet Akif</div></div>
+      </div>
+
+      <div class="hero-center">
+        <p class="lead">Bu mutlu günümüzde sizi de aramızda görmek isteriz.</p>
+        <div class="rule">∞</div>
+        <p class="kicker">Birlikte geçireceğimiz güne kalan süre</p>
+
+        <div class="countdown">
+          <div class="timebox"><strong id="days">00</strong><span>Gün</span></div>
+          <div class="timebox"><strong id="hours">00</strong><span>Saat</span></div>
+          <div class="timebox"><strong id="mins">00</strong><span>Dakika</span></div>
+          <div class="timebox"><strong id="secs">00</strong><span>Saniye</span></div>
+        </div>
+
+        <div class="verse-card">
+          <span class="arabic">رَبَّنَا هَبْ لَنَا مِنْ اَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ اَعْيُنٍ وَاجْعَلْنَا لِلْمُتَّقٖينَ اِمَامًا</span>
+          “Ey Rabbimiz! Bize eşlerimizden ve zürriyetimizden gözümüzü aydınlatacak, gönlümüzü sevindirecek sâlih kimseler ihsân eyle! Bizi takvâ sahiplerine önder yap!”<br>
+          <b>Furkan Suresi, 74. Ayet</b>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene events">
+    <div class="shell">
+      <div class="event-wrap">
+        <div class="event-card red reveal">
+          <div class="kicker">Kına Gecemiz</div>
+          <h2>Kına</h2>
+          <div class="date-circle"><div><small>Çarşamba</small><b>19.00</b></div></div>
+          <p>02 Eylül 2026</p>
+          <p><b>Diamond Düğün Salonu</b><br>Yenidoğan, Matbaacılar Sitesi No:4 Blok No 48/A<br>38080 Kocasinan / Kayseri</p>
+          <p><b>Kına kadınlara özeldir, çekim yapmak yasaktır.</b></p>
+          <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Diamond+D%C3%BC%C4%9F%C3%BCn+Salonu+Kocasinan+Kayseri">Yol Tarifi Al ↗</a>
+        </div>
+
+        <div class="event-card reveal">
+          <div class="kicker">Nikâhımız</div>
+          <h2>Nikâh</h2>
+          <div class="date-circle"><div><small>Cumartesi</small><b>16.30</b></div></div>
+          <p>05 Eylül 2026</p>
+          <p><b>Yunus Emre Kültür ve Sanat Merkezi</b><br>Batı, Ankara Cd. No:21<br>34890 Pendik / İstanbul</p>
+          <p><b>Gelin alma 02 Eylül saat 16.00'da olacak.</b></p>
+          <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Pendik+Belediyesi+Yunus+Emre+K%C3%BClt%C3%BCr+ve+Sanat+Merkezi">Yol Tarifi Al ↗</a>
+        </div>
+      </div>
+
+      <div class="form-note glass reveal">
+        <div class="note-title">Katılım Durumunuz</div>
+        <p>Aşağı kaydırıp katılım formunu doldurabilirsiniz.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene map-rsvp">
+    <div class="shell">
+      <p class="kicker reveal" style="text-align:center">Konum Bilgilerimiz</p>
+      <div class="info-grid">
+        <div class="map-card glass reveal">
+          <div class="map-fake"></div>
+          <div class="map-info">
+            <p class="kicker">Kına Gecemiz</p>
+            <p class="small">Diamond Düğün Salonu</p>
+            <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Diamond+D%C3%BC%C4%9F%C3%BCn+Salonu+Kocasinan+Kayseri">Haritada Gör</a>
+          </div>
+        </div>
+
+        <div class="map-card glass reveal">
+          <div class="map-fake"></div>
+          <div class="map-info">
+            <p class="kicker">Nikâhımız</p>
+            <p class="small">Yunus Emre Kültür ve Sanat Merkezi</p>
+            <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Pendik+Belediyesi+Yunus+Emre+K%C3%BClt%C3%BCr+ve+Sanat+Merkezi">Haritada Gör</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="rsvp-card glass reveal">
+        <p class="kicker">Katılım Durumunuz</p>
+        <h2 class="rsvp-title">Sizi aramızda görmek isteriz</h2>
+        <form class="rsvp-form" onsubmit="sendRSVP(event)">
+          <input id="name" placeholder="Ad Soyad" required>
+          <select id="status"><option>Katılıyorum</option><option>Katılamıyorum</option></select>
+          <input id="count" type="number" min="1" placeholder="Kişi Sayısı">
+          <textarea id="msg" placeholder="Notunuz (isteğe bağlı)"></textarea>
+          <button class="btn" type="submit">Gönder ↗</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene final">
+    <div class="shell reveal">
+      <h2 class="script" style="font-size:78px;margin:0 0 24px">Sevgiyle...</h2>
+      <p class="lead">Varlığınız, bu özel günümüzü daha da anlamlı kılacak.</p>
+    </div>
+  </section>
+</main>
+
+<script>
+const audio = document.getElementById("bgm");
+const musicBtn = document.getElementById("musicBtn");
+
+async function startMusic(){
+  try{
+    audio.volume = 0.72;
+    audio.currentTime = audio.currentTime || 0;
+    await audio.play();
+    musicBtn.classList.add("playing");
+  }catch(e){
+    musicBtn.classList.remove("playing");
+  }
+}
+function toggleMusic(){
+  if(audio.paused){ startMusic(); }
+  else{ audio.pause(); musicBtn.classList.remove("playing"); }
+}
+function openInvite(){
+  document.body.classList.add("open");
+  startMusic();
+  petals(22);
+  setTimeout(()=>document.querySelector(".hero").scrollIntoView({behavior:"smooth"}),760);
+}
+
+
+const target = new Date("2026-09-05T16:30:00+03:00").getTime();
+function pad(n){return String(n).padStart(2,"0")}
+function tick(){
+  const diff = Math.max(0, target - Date.now());
+  const data = {
+    days: Math.floor(diff/(1000*60*60*24)),
+    hours: Math.floor((diff%(1000*60*60*24))/(1000*60*60)),
+    mins: Math.floor((diff%(1000*60*60))/(1000*60)),
+    secs: Math.floor((diff%(1000*60))/1000)
+  };
+  Object.keys(data).forEach(id=>{
+    const el = document.getElementById(id);
+    const val = pad(data[id]);
+    if(el.textContent !== val){
+      el.textContent = val;
+      el.animate([{transform:"translateY(-10px)",opacity:.35},{transform:"translateY(0)",opacity:1}],{duration:360,easing:"ease-out"});
+    }
+  });
+}
+tick();
+setInterval(tick,1000);
+
+const obs = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add("show") })
+},{threshold:.18});
+document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
+
+function petals(count=8){
+  for(let i=0;i<count;i++){
+    const p = document.createElement("i");
+    p.className = "petal";
+    p.style.left = Math.random()*100+"vw";
+    p.style.animationDuration = (6+Math.random()*6)+"s";
+    p.style.animationDelay = (Math.random()*1.4)+"s";
+    p.style.transform = "rotate("+Math.random()*180+"deg)";
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(),13000);
+  }
+}
+setInterval(()=>petals(3),6800);
+
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwMGh8pZFx2feskIhlSowZKWdkcVQcdM7kQWoDBkTzWKFDNdoVJbSLS1rzcb-SPXH4Gxw/exec";
+
+async function sendRSVP(e){
+  e.preventDefault();
+
+  const form = e.target;
+  const button = form.querySelector('button[type="submit"]');
+  const oldText = button.textContent;
+
+  const data = {
+    name: document.getElementById("name").value.trim(),
+    status: document.getElementById("status").value,
+    count: document.getElementById("count").value || "-",
+    msg: document.getElementById("msg").value.trim() || "-",
+    note: document.getElementById("msg").value.trim() || "-"
+  };
+
+  if(!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("BURAYA_")){
+    alert("Google Sheets bağlantısı henüz eklenmemiş. README dosyasındaki Apps Script URL'sini index.html içine yapıştırın.");
+    return;
+  }
+
+  button.disabled = true;
+  button.textContent = "Gönderiliyor...";
+
+  try{
+    await fetch(GOOGLE_SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify(data)
+    });
+
+    form.reset();
+    button.textContent = "Kaydedildi ✓";
+    alert("Katılım durumunuz kaydedildi. Teşekkür ederiz.");
+    setTimeout(()=>{ button.textContent = oldText; button.disabled = false; }, 1800);
+  }catch(err){
+    button.textContent = oldText;
+    button.disabled = false;
+    alert("Kayıt sırasında bir sorun oldu. Lütfen tekrar deneyin.");
+  }
+}
+</script>
+</body>
+</html>
